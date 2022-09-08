@@ -96,7 +96,7 @@ var (
 {{ range .AST.Decls -}}
 {{with .Func -}}
 //go:wasm-module {{$.Module}}
-//go:export {{.Name|Public}}
+//go:export {{.Name}}
 func {{.Name|Public}}(
 {{- range $idx, $arg := .Args -}}
 {{- if $idx}}, {{end -}}
