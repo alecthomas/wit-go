@@ -1,0 +1,35 @@
+project_name: wit-go
+release:
+  github:
+    owner: alecthomas
+    name: wit-go
+brews:
+  -
+    install: bin.install "wit-go"
+env:
+  - CGO_ENABLED=0
+builds:
+- goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - arm64
+    - amd64
+    - "386"
+  goarm:
+    - "6"
+  main: .
+  ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  binary: wit-go
+archives:
+  -
+    format: tar.gz
+    name_template: '{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}{{ end }}'
+    files:
+      - COPYING
+      - README*
+snapshot:
+  name_template: SNAPSHOT-{{ .Commit }}
+checksum:
+  name_template: '{{ .ProjectName }}-{{ .Version }}-checksums.txt'
