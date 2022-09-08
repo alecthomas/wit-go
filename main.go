@@ -64,6 +64,9 @@ var (
 					}
 					return strings.Join(parts, "")
 				},
+				"ToSnake": func(s string) string {
+					return strings.Join(strings.Split(s, "-"), "_")
+				},
 				"Type": func(t *Type) string {
 					switch t.Ident {
 					case "u8":
@@ -96,7 +99,7 @@ var (
 {{ range .AST.Decls -}}
 {{with .Func -}}
 //go:wasm-module {{$.Module}}
-//go:export {{.Name}}
+//go:export {{.Name|ToSnake}}
 func {{.Name|Public}}(
 {{- range $idx, $arg := .Args -}}
 {{- if $idx}}, {{end -}}
